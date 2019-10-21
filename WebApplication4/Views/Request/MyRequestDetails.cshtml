@@ -1,0 +1,109 @@
+﻿@model WebApplication4.DBModel.Request
+
+@{
+    ViewBag.Title = "MyRequestDetails";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">MyRequest Details</h6>
+    </div>
+    <div class="card-body">
+
+        <div>
+            <div class="row">
+                <div class="col-4">
+                    <dl>
+                        <dt>
+                            @Html.DisplayName("Date")
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Date)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-4">
+                    <dl>
+                        <dt>
+                            @Html.DisplayName("Name")
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.User.FirstName)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-4">
+                    <dl>
+                        <dt>
+                            @Html.DisplayName("Status")
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Status.Name)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <hr />
+            @foreach (var message in Model.Messages)
+            {
+                string msgtype = message.CreatedById == @TicketSystem.Models.UserDetails.UserId ? "bg-success" : "bg-primary";
+                <div class="">
+                    <div class="card @msgtype shadow mb-4 text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">@message.CreatedBy</h5>
+                            <p><small>@message.Text</small></p>
+                            @if (!string.IsNullOrEmpty(message.Attachment))
+                            {
+                                foreach (var attachment in message.Attachment.Split('~'))
+                                {
+                                    <a style="color:white" href="@string.Concat("/Attachments/",attachment.Split('\\').LastOrDefault())" download><small>@attachment.Split('\\').LastOrDefault()</small></a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            @using (Html.BeginForm("Replay", "Request", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Messages.FirstOrDefault().Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Messages.FirstOrDefault().Text, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Messages.FirstOrDefault().Text, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Attachment", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="Attachments" value="" multiple />
+                    </div>
+                </div>
+                <input type="hidden" name="Request_Id" value="@Model.Id" />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            }
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "MyRequest")
+        </p>
+        </div>
+    </div>

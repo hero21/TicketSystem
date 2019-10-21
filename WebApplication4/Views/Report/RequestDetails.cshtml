@@ -1,0 +1,74 @@
+﻿@model WebApplication4.DBModel.Request
+
+@{
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Request Details</h6>
+    </div>
+    <div class="card-body">
+
+        <div>
+            <div class="row">
+                <div class="col-4">
+                    <dl>
+                        <dt>
+                            @Html.DisplayName("Date")
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Date)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-4">
+                    <dl>
+                        <dt>
+                            @Html.DisplayName("Name")
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.User.FirstName)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-4">
+                    <dl>
+                        <dt>
+                            @Html.DisplayName("Status")
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Status.Name)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <hr />
+            @foreach (var message in Model.Messages)
+            {
+                string msgtype = message.CreatedById == @TicketSystem.Models.UserDetails.UserId ? "bg-success" : "bg-primary";
+                <div class="">
+                    <div class="card @msgtype shadow mb-4 text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">@message.CreatedBy</h5>
+                            <p><small>@message.Text</small></p>
+                            @if (!string.IsNullOrEmpty(message.Attachment))
+                            {
+                                foreach (var attachment in message.Attachment.Split('~'))
+                                {
+                                    <a style="color:white" href="@string.Concat("/Attachments/",attachment.Split('\\').LastOrDefault())" download><small>@attachment.Split('\\').LastOrDefault()</small></a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+        </div>
+    </div>

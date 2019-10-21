@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8abad384c2ba4e7ba9d872fe9205808b" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.Flow" Width="1.5" PointX="8.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.IssueType" Width="1.5" PointX="11.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.Location" Width="1.5" PointX="6.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.Message" Width="1.5" PointX="4.125" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.Request" Width="1.5" PointX="4.125" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.Status" Width="1.5" PointX="1.625" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.User" Width="1.5" PointX="8.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Flow_IssueType" ManuallyRouted="false" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Flow_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Flow_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Requests_Flow" ManuallyRouted="false" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Requests_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Message_Request" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Request_Status" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.Role" Width="1.5" PointX="11.875" PointY="2" />
+        <EntityTypeShape EntityType="WATest01.Models.DBTSModel.SMTP" Width="1.5" PointX="6.125" PointY="1.125" />
+        <AssociationConnector Association="WATest01.Models.DBTSModel.FK_Users_Role" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
